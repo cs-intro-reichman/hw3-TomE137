@@ -29,9 +29,9 @@ public class LoanCalc {
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
 		// Replace the following statement with your code
-		iterationCounter = n;
-		while(n > 1) {
-			loan = (loan-payment) * (1+rate/100);
+		while(n > 0) {
+			loan-=payment;
+			loan = (loan) * (1+rate/100);
 			n--;
 		}
 		return loan;
@@ -42,24 +42,25 @@ public class LoanCalc {
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
-		public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
+	public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		// Replace the following statement with your code
-		double g = loan/n;
 		iterationCounter = 0;
+		double g = loan/n;
 		while (endBalance(loan, rate, n, g)>0) {
 			g+=epsilon;
 			iterationCounter++;
 		}
 		return g;
-		}
+	}
 
-		// Uses bisection search to compute an approximation of the periodical payment 
+	// Uses bisection search to compute an approximation of the periodical payment 
 	// that will bring the ending balance of a loan close to 0.
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: mod§ifies the class variable iterationCounter.
-		public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-				// Replace the following statement with your code
+	public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
+		// Replace the following statement with your code
+		iterationCounter = 0;
 		double l=loan/n, h=loan;
 		double g = (l+h)/2;
 		while((h-l)>epsilon){
@@ -69,8 +70,9 @@ public class LoanCalc {
 			else {
 				h = g;
 			}
+			iterationCounter++;
 			g = (h+l)/2;
 		}
 		return g;
-		}
+	}
 }
